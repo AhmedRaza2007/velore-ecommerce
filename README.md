@@ -1,7 +1,5 @@
 # VELORÉ - Luxury E‑Commerce Website
 
-![VELORÉ Logo](https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=luxury%20VELOR%C3%89%20logo%20minimal%20elegant&image_size=square_hd)
-
 > Experience the world of luxury fashion and lifestyle. VELORÉ brings you the finest curated pieces from around the globe.
 
 ---
@@ -24,8 +22,8 @@
 
 1.  **Clone the repository**
     ```bash
-    git clone <your-repository-url>
-    cd ui-profile
+    git clone https://github.com/AhmedRaza2007/velore-ecommerce
+    cd velore-ecommerce
     ```
 2.  **Open in browser** - Just open `index.html` in your browser!
 
@@ -34,10 +32,13 @@
 ## 📁 Project Structure
 
 ```
-ui-profile/
+velore-ecommerce/
 ├─ index.html                      # Homepage
 ├─ README.md                       # This file
 ├─ .gitignore
+├─ .github/
+│  └─ workflows/
+│     └─ deploy.yml               # GitHub Pages auto-deploy workflow
 ├─ assets/
 │  ├─ js/
 │  │  ├─ data.js                   # Product data, cart, wishlist
@@ -87,37 +88,15 @@ We've included **200+ realistic sample products** with:
 
 ---
 
-## 🌐 Deployment Options
+## 🌐 Deployment
 
-### Option 1: GitHub Pages
-1.  Push your code to a GitHub repository
-2.  Go to **Settings > Pages** in your repo
-3.  Under **Source**, select "Deploy from a branch"
-4.  Choose your main branch and click **Save**
-5.  Wait a few minutes for your site to go live!
+This project is set up for **GitHub Pages** auto-deployment! Just:
+1.  Go to your repo: https://github.com/AhmedRaza2007/velore-ecommerce
+2.  Click **Settings > Pages**
+3.  Under **Build and deployment > Source**, select **GitHub Actions**
+4.  That's it! Your site will deploy automatically on every push!
 
-### Option 2: Vercel (Recommended)
-1.  Sign up / log in to [Vercel](https://vercel.com)
-2.  Click "New Project" and import your GitHub repo
-3.  Click "Deploy" - done!
-
-### Option 3: Netlify
-1.  Sign up / log in to [Netlify](https://netlify.com)
-2.  Connect your GitHub repo
-3.  Click "Deploy site" - that's it!
-
----
-
-## 📸 Screenshots
-
-### Homepage
-![VELORÉ Homepage](https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=luxury%20ecommerce%20homepage%20elegant%20premium%20design&image_size=landscape_16_9)
-
-### Shop Page
-![VELORÉ Shop Page](https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=luxury%20ecommerce%20shop%20page%20product%20grid&image_size=landscape_16_9)
-
-### Product Page
-![VELORÉ Product Page](https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=luxury%20product%20detail%20page%20premium%20ecommerce&image_size=landscape_16_9)
+Your live URL will be: https://ahmedraza2007.github.io/velore-ecommerce
 
 ---
 
@@ -127,12 +106,4 @@ MIT License - feel free to use this project for learning or commercial purposes!
 
 ---
 
-## 📞 Contact
-
-For questions or feedback:
-- Email: hello@velore.com
-- Website: [VELORÉ](#)
-
----
-
-Made with ❤️ by VELORÉ
+Made with ❤️
