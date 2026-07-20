@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category - VELORÉ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.39/bundled/lenis.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .font-display { font-family: 'Playfair Display', serif; }
+        .product-card { transition: all 0.3s ease; }
+        .product-card:hover { transform: translateY(-8px); }
+        .product-card:hover .product-overlay { opacity: 1; }
+        .product-overlay { opacity: 0; transition: opacity 0.3s ease; }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="bg-neutral-900 text-white text-center py-2 text-sm">
+        <p>Free shipping on orders over $200 • Complimentary gift wrapping</p>
+    </div>
+    
+    <header class="sticky top-0 z-50 bg-white border-b border-gray-100">
+        <div class="container mx-auto px-6">
+            <div class="flex items-center justify-between h-20">
+                <button id="mobileMenuBtn" class="lg:hidden"><i data-lucide="menu" class="w-6 h-6"></i></button>
+                <a href="../index.html" class="text-3xl font-display font-bold tracking-wider">VELORÉ</a>
+                <nav class="hidden lg:flex items-center space-x-8">
+                    <a href="../index.html" class="text-sm uppercase tracking-wider hover:border-b border-black">Home</a>
+                    <a href="shop.html" class="text-sm uppercase tracking-wider hover:border-b border-black">Shop</a>
+                    <a href="collections.html" class="text-sm uppercase tracking-wider hover:border-b border-black">Collections</a>
+                    <a href="about.html" class="text-sm uppercase tracking-wider hover:border-b border-black">About</a>
+                    <a href="contact.html" class="text-sm uppercase tracking-wider hover:border-b border-black">Contact</a>
+                </nav>
+                <div class="flex items-center space-x-6">
+                    <a href="wishlist.html"><i data-lucide="heart" class="w-5 h-5"></i></a>
+                    <a href="cart.html" class="relative"><i data-lucide="shopping-bag" class="w-5 h-5"></i><span id="cartCount" class="absolute -top-2 -right-2 bg-black text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span></a>
+                    <a href="login.html" class="hidden sm:block"><i data-lucide="user" class="w-5 h-5"></i></a>
+                </div>
+            </div>
+        </div>
+        <div id="mobileMenu" class="lg:hidden hidden bg-white border-t border-gray-100">
+            <div class="container mx-auto px-6 py-4">
+                <nav class="space-y-4">
+                    <a href="../index.html" class="block text-sm uppercase tracking-wider py-2">Home</a>
+                    <a href="shop.html" class="block text-sm uppercase tracking-wider py-2">Shop</a>
+                    <a href="collections.html" class="block text-sm uppercase tracking-wider py-2">Collections</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="py-12">
+        <div class="container mx-auto px-6">
+            <div class="mb-8 text-sm text-gray-500">
+                <a href="../index.html" class="hover:text-black">Home</a> / <span id="categoryName" class="text-black">Category</span>
+            </div>
+            
+            <div class="text-center mb-12">
+                <h1 id="pageTitle" class="text-4xl md:text-5xl font-display font-bold mb-4">Category</h1>
+                <p id="pageDescription" class="text-gray-600 max-w-2xl mx-auto">Explore our curated selection</p>
+            </div>
+            
+            <div class="flex justify-end mb-8">
+                <select id="sortSelect" class="border border-gray-200 px-4 py-2 text-sm bg-white">
+                    <option value="featured">Featured</option>
+                    <option value="newest">Newest</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                </select>
+            </div>
+            
+            <div id="productsGrid" class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 mb-12"></div>
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-gray-200">
+        <div class="container mx-auto px-6 py-16">
+            <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-12">
+                <div class="lg:col-span-2">
+                    <h3 class="text-2xl font-display font-bold mb-6">VELORÉ</h3>
+                    <p class="text-gray-600 mb-6 max-w-sm">Experience luxury fashion and lifestyle.</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold uppercase tracking-wider mb-6">Shop</h4>
+                    <ul class="space-y-3 text-sm text-gray-600"><li><a href="shop.html" class="hover:text-black">All Products</a></li></ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold uppercase tracking-wider mb-6">Help</h4>
+                    <ul class="space-y-3 text-sm text-gray-600"><li><a href="faq.html" class="hover:text-black">FAQs</a></li><li><a href="contact.html" class="hover:text-black">Contact</a></li></ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold uppercase tracking-wider mb-6">Company</h4>
+                    <ul class="space-y-3 text-sm text-gray-600"><li><a href="about.html" class="hover:text-black">About</a></li></ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-200 mt-12 pt-8"><p class="text-sm text-gray-500">&copy; 2024 VELORÉ. All rights reserved.</p></div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/data.js"></script>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const categoryName = params.get('category') || 'All';
+        let currentSort = 'featured';
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            lucide.createIcons();
+            updateCartCount();
+            
+            const lenis = new Lenis();
+            function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+            requestAnimationFrame(raf);
+            
+            document.getElementById('categoryName').textContent = categoryName;
+            document.getElementById('pageTitle').textContent = categoryName;
+            
+            loadAndDisplayProducts();
+            
+            document.getElementById('sortSelect').addEventListener('change', function() {
+                currentSort = this.value;
+                loadAndDisplayProducts();
+            });
+            
+            document.getElementById('mobileMenuBtn')?.addEventListener('click', () => {
+                document.getElementById('mobileMenu').classList.toggle('hidden');
+            });
+        });
+        
+        function loadAndDisplayProducts() {
+            let filtered = filterProducts({ category: categoryName });
+            let sorted = sortProducts(filtered, currentSort);
+            displayProducts(sorted);
+        }
+        
+        function displayProducts(productList) {
+            const container = document.getElementById('productsGrid');
+            container.innerHTML = productList.map(product => {
+                const price = product.discountPrice || product.price;
+                const originalPrice = product.discountPrice ? product.price : null;
+                const discount = originalPrice ? Math.round((1 - price / originalPrice) * 100) : 0;
+                const inWishlist = isInWishlist(product.id);
+                return `
+                    <div class="product-card">
+                        <div class="relative overflow-hidden mb-4">
+                            <a href="product.html?id=${product.id}">
+                                <img src="${product.image}" alt="${product.name}" class="w-full aspect-square object-cover">
+                            </a>
+                            <div class="product-overlay absolute inset-0 bg-black/10 flex items-center justify-center gap-2">
+                                <button class="add-to-cart-btn bg-white text-black px-4 py-2 text-sm font-medium" data-id="${product.id}">Add to Cart</button>
+                            </div>
+                            <button class="wishlist-btn absolute top-3 right-3 bg-white p-2 rounded-full" data-id="${product.id}">
+                                <i data-lucide="heart" class="w-5 h-5 ${inWishlist ? 'fill-red-500 text-red-500' : ''}"></i>
+                            </button>
+                            ${product.isNew ? '<span class="absolute top-3 left-3 bg-black text-white text-xs px-2 py-1">NEW</span>' : ''}
+                            ${product.isSale ? '<span class="absolute top-3 left-3 bg-red-600 text-white text-xs px-2 py-1">' + discount + '% OFF</span>' : ''}
+                        </div>
+                        <a href="product.html?id=${product.id}">
+                            <p class="text-sm text-gray-500 mb-1">${product.brand}</p>
+                            <h3 class="font-medium mb-1">${product.name}</h3>
+                            <div class="flex items-center gap-2">
+                                <span class="font-semibold">$${price.toLocaleString()}</span>
+                                ${originalPrice ? '<span class="text-gray-400 line-through text-sm">$' + originalPrice.toLocaleString() + '</span>' : ''}
+                            </div>
+                        </a>
+                    </div>
+                `;
+            }).join('');
+            
+            lucide.createIcons();
+            
+            container.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    addToCart(parseInt(this.getAttribute('data-id')));
+                    showNotification('Added to cart!');
+                });
+            });
+            
+            container.querySelectorAll('.wishlist-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    toggleWishlist(id);
+                    const icon = this.querySelector('i');
+                    icon.classList.toggle('fill-red-500');
+                    icon.classList.toggle('text-red-500');
+                    showNotification(isInWishlist(id) ? 'Added to wishlist!' : 'Removed');
+                });
+            });
+        }
+        
+        function showNotification(message) {
+            const n = document.createElement('div');
+            n.className = 'fixed bottom-8 right-8 bg-black text-white px-6 py-4 z-50';
+            n.textContent = message;
+            document.body.appendChild(n);
+            setTimeout(() => n.remove(), 3000);
+        }
+    </script>
+</body>
+</html>

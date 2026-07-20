@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VELORÉ | Luxury Fashion & Lifestyle</title>
+    <meta name="description" content="Discover VELORÉ, your destination for premium luxury fashion, accessories, and lifestyle products. Shop the latest collections from top brands.">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- Lenis Smooth Scroll -->
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.39/bundled/lenis.min.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1a1a1a;
+            background-color: #ffffff;
+        }
+        
+        .font-display {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .gradient-primary {
+            background: linear-gradient(135deg, #1a1a1a 0%, #3a3a3a 100%);
+        }
+        
+        .gradient-gold {
+            background: linear-gradient(135deg, #d4af37 0%, #f5e1a3 100%);
+        }
+        
+        .text-gold {
+            color: #d4af37;
+        }
+        
+        .btn-primary {
+            background-color: #1a1a1a;
+            color: #ffffff;
+            padding: 14px 32px;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: #3a3a3a;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: #1a1a1a;
+            padding: 14px 32px;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            border: 1px solid #1a1a1a;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+        
+        .product-card {
+            transition: all 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-8px);
+        }
+        
+        .product-card:hover .product-overlay {
+            opacity: 1;
+        }
+        
+        .product-overlay {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .category-card {
+            transition: all 0.4s ease;
+        }
+        
+        .category-card:hover {
+            transform: scale(1.03);
+        }
+        
+        .category-card:hover img {
+            transform: scale(1.1);
+        }
+        
+        .category-card img {
+            transition: transform 0.6s ease;
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: #1a1a1a;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .mega-menu {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-item:hover .mega-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .testimonial-card {
+            transition: all 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <!-- Announcement Bar -->
+    <div class="bg-neutral-900 text-white text-center py-2 text-sm">
+        <p>Free shipping on orders over $200 • Complimentary gift wrapping</p>
+    </div>
+    
+    <!-- Navigation -->
+    <header class="sticky top-0 z-50 bg-white border-b border-gray-100">
+        <div class="container mx-auto px-6">
+            <div class="flex items-center justify-between h-20">
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" class="lg:hidden">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+                
+                <!-- Logo -->
+                <a href="index.html" class="text-3xl font-display font-bold tracking-wider">VELORÉ</a>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden lg:flex items-center space-x-8">
+                    <div class="nav-item relative">
+                        <a href="#" class="nav-link text-sm uppercase tracking-wider">Men</a>
+                        <!-- Mega Menu -->
+                        <div class="mega-menu absolute left-1/2 -translate-x-1/2 top-full pt-4 w-[1000px] bg-white shadow-xl border border-gray-100">
+                            <div class="grid grid-cols-4 gap-8 p-8">
+                                <div>
+                                    <h4 class="font-semibold text-sm uppercase tracking-wider mb-4">Clothing</h4>
+                                    <ul class="space-y-2">
+                                        <li><a href="pages/category.html?category=Shirts" class="text-gray-600 hover:text-black text-sm">Shirts</a></li>
+                                        <li><a href="pages/category.html?category=T-Shirts" class="text-gray-600 hover:text-black text-sm">T-Shirts</a></li>
+                                        <li><a href="pages/category.html?category=Pants" class="text-gray-600 hover:text-black text-sm">Pants</a></li>
+                                        <li><a href="pages/category.html?category=Jackets" class="text-gray-600 hover:text-black text-sm">Jackets</a></li>
+                                        <li><a href="pages/category.html?category=Suits" class="text-gray-600 hover:text-black text-sm">Suits</a></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-sm uppercase tracking-wider mb-4">Accessories</h4>
+                                    <ul class="space-y-2">
+                                        <li><a href="pages/category.html?category=Watches" class="text-gray-600 hover:text-black text-sm">Watches</a></li>
+                                        <li><a href="pages/category.html?category=Wallets" class="text-gray-600 hover:text-black text-sm">Wallets</a></li>
+                                        <li><a href="pages/category.html?category=Belts" class="text-gray-600 hover:text-black text-sm">Belts</a></li>
+                                        <li><a href="pages/category.html?category=Jewelry" class="text-gray-600 hover:text-black text-sm">Jewelry</a></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-sm uppercase tracking-wider mb-4">Shoes</h4>
+                                    <ul class="space-y-2">
+                                        <li><a href="pages/category.html?category=Sneakers" class="text-gray-600 hover:text-black text-sm">Sneakers</a></li>
+                                        <li><a href="pages/category.html?category=Formal Shoes" class="text-gray-600 hover:text-black text-sm">Formal Shoes</a></li>
+                                        <li><a href="pages/category.html?category=Boots" class="text-gray-600 hover:text-black text-sm">Boots</a></li>
+                                        <li><a href="pages/category.html?category=Sandals" class="text-gray-600 hover:text-black text-sm">Sandals</a></li>
+                                    </ul>
+                                </div>
+                                <div class="bg-gray-50 p-6">
+                                    <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=luxury%20men%20fashion%20collection%20premium%20quality&image_size=square" alt="Men Collection" class="w-full h-40 object-cover mb-4">
+                                    <a href="pages/shop.html" class="text-sm font-semibold uppercase tracking-wider border-b border-black">Shop Men</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="nav-item relative">
+                        <a href="#" class="nav-link text-sm uppercase tracking-wider">Women</a>
+                        <!-- Mega Menu -->
+                        <div class="mega-menu absolute left-1/2 -translate-x-1/2 top-full pt-4 w-[1000px] bg-white shadow-xl border border-gray-100">
+                            <div class="grid grid-cols-4 gap-8 p-8">
+                                <div>
+                                    <h4 class="font-semibold text-sm uppercase tracking-wider mb-4">Clothing</h4>
+                                    <ul class="space-y-2">
+                                        <li><a href="pages/category.html?category=Dresses" class="text-gray-600 hover:text-black text-sm">Dresses</a></li>
+                                        <li><a href="pages/category.html?category=Tops" class="text-gray-600 hover:text-black text-sm">Tops</a></li>
+                                        <li><a href="pages/category.html?category=Skirts" class="text-gray-600 hover:text-black text-sm">Skirts</a></li>
+                                        <li><a href="pages/category.html?category=Coats" class="text-gray-600 hover:text-black text-sm">Coats</a></li>
+                                        <li><a href="pages/category.html?category=Blazers" class="text-gray-600 hover:text-black text-sm">Blazers</a></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-sm uppercase tracking-wider mb-4">Accessories</h4>
+                                    <ul class="space-y-2">
+                                        <li><a href="pages/category.html?category=Handbags" class="text-gray-600 hover:text-black text-sm">Handbags</a></li>
+                                        <li><a href="pages/category.html?category=Jewelry" class="text-gray-600 hover:text-black text-sm">Jewelry</a></li>
+                                        <li><a href="pages/category.html?category=Sunglasses" class="text-gray-600 hover:text-black text-sm">Sunglasses</a></li>
+                                        <li><a href="pages/category.html?category=Scarves" class="text-gray-600 hover:text-black text-sm">Scarves</a></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-sm uppercase tracking-wider mb-4">Shoes</h4>
+                                    <ul class="space-y-2">
+                                        <li><a href="pages/category.html?category=Heels" class="text-gray-600 hover:text-black text-sm">Heels</a></li>
+                                        <li><a href="pages/category.html?category=Sneakers" class="text-gray-600 hover:text-black text-sm">Sneakers</a></li>
+                                        <li><a href="pages/category.html?category=Flats" class="text-gray-600 hover:text-black text-sm">Flats</a></li>
+                                        <li><a href="pages/category.html?category=Boots" class="text-gray-600 hover:text-black text-sm">Boots</a></li>
+                                    </ul>
+                                </div>
+                                <div class="bg-gray-50 p-6">
+                                    <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=luxury%20women%20fashion%20collection%20premium%20quality&image_size=square" alt="Women Collection" class="w-full h-40 object-cover mb-4">
+                                    <a href="pages/shop.html" class="text-sm font-semibold uppercase tracking-wider border-b border-black">Shop Women</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <a href="pages/shop.html" class="nav-link text-sm uppercase tracking-wider">Shop</a>
+                    <a href="pages/collections.html" class="nav-link text-sm uppercase tracking-wider">Collections</a>
+                    <a href="pages/about.html" class="nav-link text-sm uppercase tracking-wider">About</a>
+                    <a href="pages/contact.html" class="nav-link text-sm uppercase tracking-wider">Contact</a>
+                </nav>
+                
+                <!-- Icons -->
+                <div class="flex items-center space-x-6">
+                    <button id="searchBtn">
+                        <i data-lucide="search" class="w-5 h-5"></i>
+                    </button>
+                    <a href="pages/wishlist.html">
+                        <i data-lucide="heart" class="w-5 h-5"></i>
+                    </a>
+                    <a href="pages/cart.html" class="relative">
+                        <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                        <span id="cartCount" class="absolute -top-2 -right-2 bg-black text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                    </a>
+                    <a href="pages/login.html" class="hidden sm:block">
+                        <i data-lucide="user" class="w-5 h-5"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="lg:hidden hidden bg-white border-t border-gray-100">
+            <div class="container mx-auto px-6 py-4">
+                <nav class="space-y-4">
+                    <a href="#" class="block text-sm uppercase tracking-wider py-2">Men</a>
+                    <a href="#" class="block text-sm uppercase tracking-wider py-2">Women</a>
+                    <a href="pages/shop.html" class="block text-sm uppercase tracking-wider py-2">Shop</a>
+                    <a href="pages/collections.html" class="block text-sm uppercase tracking-wider py-2">Collections</a>
+                    <a href="pages/about.html" class="block text-sm uppercase tracking-wider py-2">About</a>
+                    <a href="pages/contact.html" class="block text-sm uppercase tracking-wider py-2">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Search Modal -->
+    <div id="searchModal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center">
+        <div class="bg-white w-full max-w-3xl mx-4 p-8">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-2xl font-display">Search</h3>
+                <button id="closeSearch" class="p-2">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            <div class="relative">
+                <input type="text" id="searchInput" placeholder="Search for products, brands, categories..." class="w-full border-b-2 border-black py-4 text-xl focus:outline-none">
+                <i data-lucide="search" class="w-6 h-6 absolute right-0 top-1/2 -translate-y-1/2"></i>
+            </div>
+            <div id="searchResults" class="mt-6"></div>
+        </div>
+    </div>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="relative h-[90vh] overflow-hidden">
+            <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=luxury%20fashion%20hero%20banner%20premium%20quality%20elegant%20model&image_size=landscape_16_9" alt="VELORÉ Hero" class="absolute inset-0 w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black/30"></div>
+            <div class="relative z-10 h-full flex items-center">
+                <div class="container mx-auto px-6">
+                    <div class="max-w-2xl text-white">
+                        <p class="text-sm uppercase tracking-widest mb-4 opacity-90">New Arrivals</p>
+                        <h1 class="text-5xl md:text-7xl font-display font-bold mb-6 leading-tight">Elevate Your Style</h1>
+                        <p class="text-lg mb-8 opacity-90">Discover our curated collection of luxury fashion and lifestyle pieces that define sophistication and timeless elegance.</p>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="pages/shop.html" class="btn-primary bg-white text-black hover:bg-gray-100">Shop Now</a>
+                            <a href="pages/collections.html" class="btn-secondary border-white text-white hover:bg-white hover:text-black">Explore Collections</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories Section -->
+        <section class="py-20 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-display font-bold mb-4">Shop by Category</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">Explore our extensive range of luxury products across multiple categories</p>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
+                    <a href="pages/category.html?category=Men" class="category-card relative group overflow-hidden aspect-square">
+                        <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=luxury%20men%20fashion%20category%20premium&image_size=square" alt="Men" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-all flex items-center justify-center">
+                            <h3 class="text-white text-lg font-semibold uppercase tracking-wider">Men</h3>
+                        </div>
+                    </a>
+                    
+                    <a href="pages/category.html?category=Women" class="category-card relative group overflow-hidden aspect-square">
+                        <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=luxury%20women%20fashion%20category%20premium&image_size=square" alt="Women" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-all flex items-center justify-center">
+                            <h3 class="text-white text-lg font-semibold uppercase tracking-wider">Women</h3>
+                        </div>
+                    </a>
+                    
+                    <a href="pages/category.html?category=Kids" class="category-card relative group overflow-hidden aspect-square">
+                        <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=luxury%20kids%20fashion%20category%20premium&image_size=square" alt="Kids" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-all flex items-center justify-center">
+                            <h3 class="text-white text-lg font-semibold uppercase tracking-wider">Kids</h3>
+                        </div>
+                    </a>
+                    
+                    <a href="pages/category.html?category=Shoes" class="category-card relative group overflow-hidden aspect-square">
+                        <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=luxury%20shoes%20collection%20premium%20quality&image_size=square" alt="Shoes" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-all flex items-center justify-center">
+                            <h3 class="text-white text-lg font-semibold uppercase tracking-wider">Shoes</h3>
+                        </div>
+                    </a>
+                    
+                    <a href="pages/category.html?category=Sneakers" class="category-card relative group overflow-hidden aspect-square">
+                        <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=luxury%20sneakers%20collection%20premium%20quality&image_size=square" alt="Sneakers" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-all flex items-center justify-center">
+                            <h3 class="text-white text-lg font-semibold uppercase tracking-wider">Sneakers</h3>
+                        </div>
+                    </a>
+                    
+                    <a href="pages/category.html?category=Bags" class="category-card relative group overflow-hidden aspect-square">
+                        <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=luxury%20handbags%20collection%20premium%20quality&image_size=square" alt="Bags" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-all flex items-center justify-center">
+                            <h3 class="text-white text-lg font-semibold uppercase tracking-wider">Bags</h3>
+                        </div>
+                    </a>
+                    
+                    <a href="pages/category.html?category=Backpacks" class="category-card relative group overflow-hidden aspect-square">
+                        <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=luxury%20backpacks%20collection%20premium%20quality&image_size=square" alt="Backpacks" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-all flex items-center justify-center">
+                            <h3 class="text-white text-lg font-semibold uppercase tracking-wider">Backpacks</h3>
+                        </div>
+                    </a>
+                    
+                    <a href="pages/category.html?category=Wallets" class="category-card relative group overflow-hidden aspect-square">
+                        <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=luxury%20wallets%20collection%20premium%20quality&image_size=square" alt="Wallets" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-all flex items-center justify-center">
+                            <h3 class="text-white text-lg font-semibold uppercase tracking-wider">Wallets</h3>
+                        </div>
+                    </a>
+                    
+                    <a href="pages/category.html?category=Watches" class="category-card relative group overflow-hidden aspect-square">
+                        <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=luxury%20watches%20collection%20premium%20quality&image_size=square" alt="Watches" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-all flex items-center justify-center">
+                            <h3 class="text-white text-lg font-semibold uppercase tracking-wider">Watches</h3>
+                        </div>
+                    </a>
+                    
+                    <a href="pages/category.html?category=Sunglasses" class="category-card relative group overflow-hidden aspect-square">
+                        <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=luxury%20sunglasses%20collection%20premium%20quality&image_size=square" alt="Sunglasses" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-all flex items-center justify-center">
+                            <h3 class="text-white text-lg font-semibold uppercase tracking-wider">Sunglasses</h3>
+                        </div>
+                    </a>
+                    
+                    <a href="pages/category.html?category=Jewelry" class="category-card relative group overflow-hidden aspect-square">
+                        <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=luxury%20jewelry%20collection%20premium%20quality&image_size=square" alt="Jewelry" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-all flex items-center justify-center">
+                            <h3 class="text-white text-lg font-semibold uppercase tracking-wider">Jewelry</h3>
+                        </div>
+                    </a>
+                    
+                    <a href="pages/category.html?category=Perfumes" class="category-card relative group overflow-hidden aspect-square">
+                        <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=luxury%20perfumes%20collection%20premium%20quality&image_size=square" alt="Perfumes" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-all flex items-center justify-center">
+                            <h3 class="text-white text-lg font-semibold uppercase tracking-wider">Perfumes</h3>
+                        </div>
+                    </a>
+                    
+                    <a href="pages/category.html?category=Beauty" class="category-card relative group overflow-hidden aspect-square">
+                        <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=luxury%20beauty%20products%20collection%20premium&image_size=square" alt="Beauty" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-all flex items-center justify-center">
+                            <h3 class="text-white text-lg font-semibold uppercase tracking-wider">Beauty</h3>
+                        </div>
+                    </a>
+                    
+                    <a href="pages/category.html?category=Skincare" class="category-card relative group overflow-hidden aspect-square">
+                        <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=luxury%20skincare%20products%20collection%20premium&image_size=square" alt="Skincare" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-all flex items-center justify-center">
+                            <h3 class="text-white text-lg font-semibold uppercase tracking-wider">Skincare</h3>
+                        </div>
+                    </a>
+                    
+                    <a href="pages/category.html?category=Accessories" class="category-card relative group overflow-hidden aspect-square">
+                        <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=luxury%20fashion%20accessories%20collection%20premium&image_size=square" alt="Accessories" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-all flex items-center justify-center">
+                            <h3 class="text-white text-lg font-semibold uppercase tracking-wider">Accessories</h3>
+                        </div>
+                    </a>
+                    
+                    <a href="pages/category.html?category=Sportswear" class="category-card relative group overflow-hidden aspect-square">
+                        <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=luxury%20sportswear%20collection%20premium%20quality&image_size=square" alt="Sportswear" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-all flex items-center justify-center">
+                            <h3 class="text-white text-lg font-semibold uppercase tracking-wider">Sportswear</h3>
+                        </div>
+                    </a>
+                    
+                    <a href="pages/category.html?category=Electronics" class="category-card relative group overflow-hidden aspect-square">
+                        <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=luxury%20electronics%20gadgets%20collection%20premium&image_size=square" alt="Electronics" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-all flex items-center justify-center">
+                            <h3 class="text-white text-lg font-semibold uppercase tracking-wider">Electronics</h3>
+                        </div>
+                    </a>
+                    
+                    <a href="pages/category.html?category=Home Decor" class="category-card relative group overflow-hidden aspect-square">
+                        <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=luxury%20home%20decor%20collection%20premium%20quality&image_size=square" alt="Home Decor" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-all flex items-center justify-center">
+                            <h3 class="text-white text-lg font-semibold uppercase tracking-wider">Home Decor</h3>
+                        </div>
+                    </a>
+                    
+                    <a href="pages/category.html?category=Furniture" class="category-card relative group overflow-hidden aspect-square">
+                        <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=luxury%20furniture%20collection%20premium%20quality&image_size=square" alt="Furniture" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-all flex items-center justify-center">
+                            <h3 class="text-white text-lg font-semibold uppercase tracking-wider">Furniture</h3>
+                        </div>
+                    </a>
+                    
+                    <a href="pages/category.html?category=Kitchen" class="category-card relative group overflow-hidden aspect-square">
+                        <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=luxury%20kitchen%20products%20collection%20premium&image_size=square" alt="Kitchen" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-all flex items-center justify-center">
+                            <h3 class="text-white text-lg font-semibold uppercase tracking-wider">Kitchen</h3>
+                        </div>
+                    </a>
+                    
+                    <a href="pages/category.html?category=Travel" class="category-card relative group overflow-hidden aspect-square">
+                        <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=luxury%20travel%20accessories%20collection%20premium&image_size=square" alt="Travel" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-all flex items-center justify-center">
+                            <h3 class="text-white text-lg font-semibold uppercase tracking-wider">Travel</h3>
+                        </div>
+                    </a>
+                    
+                    <a href="pages/category.html?category=Gifts" class="category-card relative group overflow-hidden aspect-square">
+                        <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=luxury%20gift%20items%20collection%20premium%20quality&image_size=square" alt="Gifts" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-all flex items-center justify-center">
+                            <h3 class="text-white text-lg font-semibold uppercase tracking-wider">Gifts</h3>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Collections -->
+        <section class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                    <div>
+                        <h2 class="text-4xl font-display font-bold mb-2">Featured Collections</h2>
+                        <p class="text-gray-600">Curated selections for the discerning shopper</p>
+                    </div>
+                    <a href="pages/collections.html" class="text-sm uppercase tracking-wider border-b border-black mt-4 md:mt-0 inline-block">View All Collections</a>
+                </div>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="relative overflow-hidden">
+                        <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=luxury%20summer%20collection%20fashion%20premium%20quality&image_size=portrait_4_3" alt="Summer Collection" class="w-full h-[400px] object-cover">
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-8">
+                            <h3 class="text-white text-2xl font-display font-semibold mb-2">Summer Essentials</h3>
+                            <p class="text-white/80 mb-4">Lightweight pieces for warm days</p>
+                            <a href="pages/collections.html" class="text-white text-sm uppercase tracking-wider border-b border-white inline-block">Shop Now</a>
+                        </div>
+                    </div>
+                    
+                    <div class="relative overflow-hidden">
+                        <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=luxury%20autumn%20collection%20fashion%20premium%20quality&image_size=portrait_4_3" alt="Autumn Collection" class="w-full h-[400px] object-cover">
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-8">
+                            <h3 class="text-white text-2xl font-display font-semibold mb-2">Autumn Layers</h3>
+                            <p class="text-white/80 mb-4">Cozy styles for the season</p>
+                            <a href="pages/collections.html" class="text-white text-sm uppercase tracking-wider border-b border-white inline-block">Shop Now</a>
+                        </div>
+                    </div>
+                    
+                    <div class="relative overflow-hidden">
+                        <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=luxury%20accessories%20collection%20premium%20quality&image_size=portrait_4_3" alt="Accessories Collection" class="w-full h-[400px] object-cover">
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-8">
+                            <h3 class="text-white text-2xl font-display font-semibold mb-2">Timeless Accessories</h3>
+                            <p class="text-white/80 mb-4">Complete your look</p>
+                            <a href="pages/collections.html" class="text-white text-sm uppercase tracking-wider border-b border-white inline-block">Shop Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Best Sellers -->
+        <section class="py-20 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-display font-bold mb-4">Best Sellers</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">Our most loved pieces by our valued customers</p>
+                </div>
+                
+                <div id="bestSellers" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    <!-- Products will be loaded here by JavaScript -->
+                </div>
+                
+                <div class="text-center mt-12">
+                    <a href="pages/shop.html" class="btn-primary">View All Products</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Banner Section -->
+        <section class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="relative overflow-hidden">
+                    <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=luxury%20fashion%20banner%20premium%20quality%20elegant&image_size=landscape_16_9" alt="Banner" class="w-full h-[500px] object-cover">
+                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+                        <div class="text-center text-white max-w-2xl">
+                            <p class="text-sm uppercase tracking-widest mb-4">Limited Time</p>
+                            <h2 class="text-4xl md:text-6xl font-display font-bold mb-6">20% Off Selected Items</h2>
+                            <p class="text-lg mb-8">Don't miss out on our exclusive summer sale</p>
+                            <a href="pages/shop.html?filter=sale" class="btn-primary bg-white text-black hover:bg-gray-100">Shop Sale</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- New Arrivals -->
+        <section class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                    <div>
+                        <h2 class="text-4xl font-display font-bold mb-2">New Arrivals</h2>
+                        <p class="text-gray-600">The latest pieces just arrived</p>
+                    </div>
+                    <a href="pages/shop.html?sort=newest" class="text-sm uppercase tracking-wider border-b border-black mt-4 md:mt-0 inline-block">View All</a>
+                </div>
+                
+                <div id="newArrivals" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    <!-- Products will be loaded here by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Trending Products -->
+        <section class="py-20 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-display font-bold mb-4">Trending Now</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">What everyone is talking about</p>
+                </div>
+                
+                <div id="trendingProducts" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    <!-- Products will be loaded here by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section class="py-16 border-y border-gray-200">
+            <div class="container mx-auto px-6">
+                <div class="grid md:grid-cols-4 gap-8 text-center">
+                    <div>
+                        <i data-lucide="truck" class="w-10 h-10 mx-auto mb-4"></i>
+                        <h4 class="font-semibold mb-2">Free Shipping</h4>
+                        <p class="text-sm text-gray-600">On orders over $200</p>
+                    </div>
+                    <div>
+                        <i data-lucide="refresh-ccw" class="w-10 h-10 mx-auto mb-4"></i>
+                        <h4 class="font-semibold mb-2">Easy Returns</h4>
+                        <p class="text-sm text-gray-600">30-day return policy</p>
+                    </div>
+                    <div>
+                        <i data-lucide="shield-check" class="w-10 h-10 mx-auto mb-4"></i>
+                        <h4 class="font-semibold mb-2">Secure Payment</h4>
+                        <p class="text-sm text-gray-600">100% secure checkout</p>
+                    </div>
+                    <div>
+                        <i data-lucide="headphones" class="w-10 h-10 mx-auto mb-4"></i>
+                        <h4 class="font-semibold mb-2">Customer Support</h4>
+                        <p class="text-sm text-gray-600">24/7 dedicated support</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-display font-bold mb-4">What Our Customers Say</h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">Hear from people who love VELORÉ</p>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="testimonial-card bg-white p-8 border border-gray-100">
+                        <div class="flex items-center mb-4">
+                            <i data-lucide="star" class="w-5 h-5 fill-yellow-400 text-yellow-400"></i>
+                            <i data-lucide="star" class="w-5 h-5 fill-yellow-400 text-yellow-400"></i>
+                            <i data-lucide="star" class="w-5 h-5 fill-yellow-400 text-yellow-400"></i>
+                            <i data-lucide="star" class="w-5 h-5 fill-yellow-400 text-yellow-400"></i>
+                            <i data-lucide="star" class="w-5 h-5 fill-yellow-400 text-yellow-400"></i>
+                        </div>
+                        <p class="text-gray-600 mb-6 italic">"The quality of the products exceeded my expectations. VELORÉ has become my go-to for luxury fashion."</p>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center">
+                                <span class="font-semibold">SM</span>
+                            </div>
+                            <div class="ml-4">
+                                <p class="font-semibold">Sarah Mitchell</p>
+                                <p class="text-sm text-gray-500">New York</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card bg-white p-8 border border-gray-100">
+                        <div class="flex items-center mb-4">
+                            <i data-lucide="star" class="w-5 h-5 fill-yellow-400 text-yellow-400"></i>
+                            <i data-lucide="star" class="w-5 h-5 fill-yellow-400 text-yellow-400"></i>
+                            <i data-lucide="star" class="w-5 h-5 fill-yellow-400 text-yellow-400"></i>
+                            <i data-lucide="star" class="w-5 h-5 fill-yellow-400 text-yellow-400"></i>
+                            <i data-lucide="star" class="w-5 h-5 fill-yellow-400 text-yellow-400"></i>
+                        </div>
+                        <p class="text-gray-600 mb-6 italic">"Exceptional service and beautiful packaging. Every purchase feels like a special gift."</p>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center">
+                                <span class="font-semibold">JD</span>
+                            </div>
+                            <div class="ml-4">
+                                <p class="font-semibold">James Davis</p>
+                                <p class="text-sm text-gray-500">London</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card bg-white p-8 border border-gray-100">
+                        <div class="flex items-center mb-4">
+                            <i data-lucide="star" class="w-5 h-5 fill-yellow-400 text-yellow-400"></i>
+                            <i data-lucide="star" class="w-5 h-5 fill-yellow-400 text-yellow-400"></i>
+                            <i data-lucide="star" class="w-5 h-5 fill-yellow-400 text-yellow-400"></i>
+                            <i data-lucide="star" class="w-5 h-5 fill-yellow-400 text-yellow-400"></i>
+                            <i data-lucide="star" class="w-5 h-5 fill-yellow-400 text-yellow-400"></i>
+                        </div>
+                        <p class="text-gray-600 mb-6 italic">"Timeless pieces that I'll cherish for years. The attention to detail is remarkable."</p>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center">
+                                <span class="font-semibold">EC</span>
+                            </div>
+                            <div class="ml-4">
+                                <p class="font-semibold">Emma Chen</p>
+                                <p class="text-sm text-gray-500">Paris</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter -->
+        <section class="py-20 bg-neutral-900 text-white">
+            <div class="container mx-auto px-6">
+                <div class="max-w-3xl mx-auto text-center">
+                    <h2 class="text-4xl font-display font-bold mb-4">Stay Connected</h2>
+                    <p class="text-gray-300 mb-8">Subscribe to our newsletter for exclusive offers, new arrivals, and style inspiration</p>
+                    <form id="newsletterForm" class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                        <input type="email" placeholder="Enter your email" class="flex-1 px-6 py-4 text-black focus:outline-none" required>
+                        <button type="submit" class="btn-primary bg-white text-black hover:bg-gray-100">Subscribe</button>
+                    </form>
+                    <p class="text-sm text-gray-400 mt-4">By subscribing, you agree to our Privacy Policy</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200">
+        <div class="container mx-auto px-6 py-16">
+            <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-12">
+                <div class="lg:col-span-2">
+                    <h3 class="text-2xl font-display font-bold mb-6">VELORÉ</h3>
+                    <p class="text-gray-600 mb-6 max-w-sm">Experience the world of luxury fashion and lifestyle. VELORÉ brings you the finest curated pieces from around the globe.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="p-2 border border-gray-300 hover:border-black transition-colors">
+                            <i data-lucide="instagram" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="p-2 border border-gray-300 hover:border-black transition-colors">
+                            <i data-lucide="facebook" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="p-2 border border-gray-300 hover:border-black transition-colors">
+                            <i data-lucide="twitter" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="p-2 border border-gray-300 hover:border-black transition-colors">
+                            <i data-lucide="pinterest" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold uppercase tracking-wider mb-6">Shop</h4>
+                    <ul class="space-y-3">
+                        <li><a href="pages/shop.html" class="text-gray-600 hover:text-black text-sm">All Products</a></li>
+                        <li><a href="pages/category.html?category=Men" class="text-gray-600 hover:text-black text-sm">Men</a></li>
+                        <li><a href="pages/category.html?category=Women" class="text-gray-600 hover:text-black text-sm">Women</a></li>
+                        <li><a href="pages/category.html?category=Kids" class="text-gray-600 hover:text-black text-sm">Kids</a></li>
+                        <li><a href="pages/collections.html" class="text-gray-600 hover:text-black text-sm">Collections</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold uppercase tracking-wider mb-6">Help</h4>
+                    <ul class="space-y-3">
+                        <li><a href="pages/faq.html" class="text-gray-600 hover:text-black text-sm">FAQs</a></li>
+                        <li><a href="pages/contact.html" class="text-gray-600 hover:text-black text-sm">Contact Us</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-black text-sm">Shipping</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-black text-sm">Returns</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-black text-sm">Size Guide</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold uppercase tracking-wider mb-6">Company</h4>
+                    <ul class="space-y-3">
+                        <li><a href="pages/about.html" class="text-gray-600 hover:text-black text-sm">About Us</a></li>
+                        <li><a href="pages/privacy.html" class="text-gray-600 hover:text-black text-sm">Privacy Policy</a></li>
+                        <li><a href="pages/terms.html" class="text-gray-600 hover:text-black text-sm">Terms & Conditions</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-black text-sm">Careers</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-200 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-sm text-gray-500">&copy; 2024 VELORÉ. All rights reserved.</p>
+                <div class="flex items-center space-x-4 mt-4 md:mt-0">
+                    <img src="https://coresg-normal.trae.ai/api/ide/v1/text_to_image?prompt=visa%20mastercard%20amex%20paypal%20payment%20icons&image_size=square" alt="Payment Methods" class="h-6">
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/data.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+        
+        // Initialize Lenis smooth scroll
+        const lenis = new Lenis();
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+    </script>
+</body>
+</html>

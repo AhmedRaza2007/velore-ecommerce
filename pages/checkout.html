@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - VELORÉ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .font-display { font-family: 'Playfair Display', serif; }
+    </style>
+</head>
+<body class="antialiased bg-gray-50">
+    <div class="bg-neutral-900 text-white text-center py-2 text-sm">
+        <p>Free shipping on orders over $200 • Complimentary gift wrapping</p>
+    </div>
+    
+    <header class="sticky top-0 z-50 bg-white border-b border-gray-100">
+        <div class="container mx-auto px-6">
+            <div class="flex items-center justify-between h-20">
+                <a href="../index.html" class="text-3xl font-display font-bold tracking-wider">VELORÉ</a>
+                <a href="cart.html" class="text-sm hover:underline">Back to Cart</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="py-12">
+        <div class="container mx-auto px-6 max-w-6xl">
+            <h1 class="text-3xl md:text-4xl font-display font-bold mb-12">Checkout</h1>
+            
+            <div class="grid lg:grid-cols-3 gap-12">
+                <div class="lg:col-span-2">
+                    <form id="checkoutForm">
+                        <div class="bg-white p-8 mb-8">
+                            <h2 class="text-xl font-semibold mb-6">Contact Information</h2>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm mb-1">Email</label>
+                                    <input type="email" required class="w-full border border-gray-200 px-4 py-3">
+                                </div>
+                                <div>
+                                    <label class="block text-sm mb-1">Phone</label>
+                                    <input type="tel" class="w-full border border-gray-200 px-4 py-3">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white p-8 mb-8">
+                            <h2 class="text-xl font-semibold mb-6">Shipping Address</h2>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm mb-1">First Name</label>
+                                    <input type="text" required class="w-full border border-gray-200 px-4 py-3">
+                                </div>
+                                <div>
+                                    <label class="block text-sm mb-1">Last Name</label>
+                                    <input type="text" required class="w-full border border-gray-200 px-4 py-3">
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <label class="block text-sm mb-1">Address</label>
+                                <input type="text" required class="w-full border border-gray-200 px-4 py-3">
+                            </div>
+                            <div class="mt-4">
+                                <label class="block text-sm mb-1">Apartment, suite, etc. (optional)</label>
+                                <input type="text" class="w-full border border-gray-200 px-4 py-3">
+                            </div>
+                            <div class="grid md:grid-cols-3 gap-4 mt-4">
+                                <div>
+                                    <label class="block text-sm mb-1">City</label>
+                                    <input type="text" required class="w-full border border-gray-200 px-4 py-3">
+                                </div>
+                                <div>
+                                    <label class="block text-sm mb-1">State</label>
+                                    <input type="text" required class="w-full border border-gray-200 px-4 py-3">
+                                </div>
+                                <div>
+                                    <label class="block text-sm mb-1">ZIP Code</label>
+                                    <input type="text" required class="w-full border border-gray-200 px-4 py-3">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white p-8">
+                            <h2 class="text-xl font-semibold mb-6">Payment</h2>
+                            <div class="mb-4">
+                                <label class="block text-sm mb-1">Card Number</label>
+                                <input type="text" placeholder="1234 5678 9012 3456" class="w-full border border-gray-200 px-4 py-3">
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm mb-1">Expiry Date</label>
+                                    <input type="text" placeholder="MM/YY" class="w-full border border-gray-200 px-4 py-3">
+                                </div>
+                                <div>
+                                    <label class="block text-sm mb-1">CVV</label>
+                                    <input type="text" placeholder="123" class="w-full border border-gray-200 px-4 py-3">
+                                </div>
+                            </div>
+                            <button type="submit" class="w-full bg-black text-white py-4 mt-6 uppercase tracking-wider hover:bg-gray-800">Complete Order</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div>
+                    <div class="bg-white p-8">
+                        <h2 class="text-xl font-semibold mb-6">Your Order</h2>
+                        <div id="orderItems" class="space-y-4 mb-6"></div>
+                        <div class="border-t border-gray-200 pt-4 space-y-3">
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Subtotal</span>
+                                <span id="checkoutSubtotal">$0</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Shipping</span>
+                                <span>Free</span>
+                            </div>
+                            <div class="flex justify-between text-red-600">
+                                <span>Discount</span>
+                                <span id="checkoutDiscount">-$0</span>
+                            </div>
+                        </div>
+                        <div class="border-t border-gray-300 pt-4 mt-4">
+                            <div class="flex justify-between text-xl font-semibold">
+                                <span>Total</span>
+                                <span id="checkoutTotal">$0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-gray-200 mt-12">
+        <div class="container mx-auto px-6 py-8">
+            <p class="text-sm text-gray-500 text-center">&copy; 2024 VELORÉ. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../assets/js/data.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            lucide.createIcons();
+            loadOrder();
+            
+            document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Thank you for your order!');
+                cart = [];
+                saveCart();
+                window.location.href = '../index.html';
+            });
+        });
+        
+        function loadOrder() {
+            const container = document.getElementById('orderItems');
+            container.innerHTML = cart.map(item => {
+                const product = getProductById(item.productId);
+                const price = product.discountPrice || product.price;
+                return `
+                    <div class="flex gap-4">
+                        <img src="${product.image}" alt="${product.name}" class="w-16 h-16 object-cover">
+                        <div class="flex-1">
+                            <p class="font-medium">${product.name}</p>
+                            <p class="text-sm text-gray-500">Qty: ${item.quantity}</p>
+                        </div>
+                        <span>$${(price * item.quantity).toLocaleString()}</span>
+                    </div>
+                `;
+            }).join('');
+            
+            document.getElementById('checkoutSubtotal').textContent = '$' + getCartSubtotal().toLocaleString();
+            document.getElementById('checkoutDiscount').textContent = '-$' + getDiscountTotal().toLocaleString();
+            document.getElementById('checkoutTotal').textContent = '$' + getCartTotal().toLocaleString();
+        }
+    </script>
+</body>
+</html>

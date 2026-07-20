@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - VELORÉ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.39/bundled/lenis.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .font-display { font-family: 'Playfair Display', serif; }
+        .product-card { transition: all 0.3s ease; }
+        .product-card:hover { transform: translateY(-8px); }
+        .product-card:hover .product-overlay { opacity: 1; }
+        .product-overlay { opacity: 0; transition: opacity 0.3s ease; }
+    </style>
+</head>
+<body class="antialiased">
+    <!-- Announcement Bar -->
+    <div class="bg-neutral-900 text-white text-center py-2 text-sm">
+        <p>Free shipping on orders over $200 • Complimentary gift wrapping</p>
+    </div>
+    
+    <!-- Navigation -->
+    <header class="sticky top-0 z-50 bg-white border-b border-gray-100">
+        <div class="container mx-auto px-6">
+            <div class="flex items-center justify-between h-20">
+                <button id="mobileMenuBtn" class="lg:hidden">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+                <a href="../index.html" class="text-3xl font-display font-bold tracking-wider">VELORÉ</a>
+                <nav class="hidden lg:flex items-center space-x-8">
+                    <a href="../index.html" class="text-sm uppercase tracking-wider hover:border-b border-black">Home</a>
+                    <a href="shop.html" class="text-sm uppercase tracking-wider border-b border-black">Shop</a>
+                    <a href="collections.html" class="text-sm uppercase tracking-wider hover:border-b border-black">Collections</a>
+                    <a href="about.html" class="text-sm uppercase tracking-wider hover:border-b border-black">About</a>
+                    <a href="contact.html" class="text-sm uppercase tracking-wider hover:border-b border-black">Contact</a>
+                </nav>
+                <div class="flex items-center space-x-6">
+                    <button id="searchBtn">
+                        <i data-lucide="search" class="w-5 h-5"></i>
+                    </button>
+                    <a href="wishlist.html">
+                        <i data-lucide="heart" class="w-5 h-5"></i>
+                    </a>
+                    <a href="cart.html" class="relative">
+                        <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                        <span id="cartCount" class="absolute -top-2 -right-2 bg-black text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                    </a>
+                    <a href="login.html" class="hidden sm:block">
+                        <i data-lucide="user" class="w-5 h-5"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div id="mobileMenu" class="lg:hidden hidden bg-white border-t border-gray-100">
+            <div class="container mx-auto px-6 py-4">
+                <nav class="space-y-4">
+                    <a href="../index.html" class="block text-sm uppercase tracking-wider py-2">Home</a>
+                    <a href="shop.html" class="block text-sm uppercase tracking-wider py-2">Shop</a>
+                    <a href="collections.html" class="block text-sm uppercase tracking-wider py-2">Collections</a>
+                    <a href="about.html" class="block text-sm uppercase tracking-wider py-2">About</a>
+                    <a href="contact.html" class="block text-sm uppercase tracking-wider py-2">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="py-12">
+        <div class="container mx-auto px-6">
+            <!-- Breadcrumb -->
+            <div class="mb-8 text-sm text-gray-500">
+                <a href="../index.html" class="hover:text-black">Home</a> / <span class="text-black">Shop</span>
+            </div>
+            
+            <!-- Page Title -->
+            <div class="text-center mb-12">
+                <h1 class="text-4xl md:text-5xl font-display font-bold mb-4">Shop All</h1>
+                <p class="text-gray-600 max-w-2xl mx-auto">Discover our complete collection of luxury fashion and lifestyle products</p>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row gap-8">
+                <!-- Filters Sidebar -->
+                <aside class="w-full lg:w-64 shrink-0">
+                    <div class="sticky top-24">
+                        <div class="mb-8">
+                            <h3 class="font-semibold mb-4 uppercase tracking-wider text-sm">Categories</h3>
+                            <div class="space-y-2">
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" class="category-filter" value="Men">
+                                    <span>Men</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" class="category-filter" value="Women">
+                                    <span>Women</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" class="category-filter" value="Kids">
+                                    <span>Kids</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" class="category-filter" value="Shoes">
+                                    <span>Shoes</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" class="category-filter" value="Bags">
+                                    <span>Bags</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" class="category-filter" value="Accessories">
+                                    <span>Accessories</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-8">
+                            <h3 class="font-semibold mb-4 uppercase tracking-wider text-sm">Price</h3>
+                            <div class="flex gap-2 mb-4">
+                                <input type="number" id="minPrice" placeholder="Min" class="w-full border border-gray-200 px-3 py-2 text-sm">
+                                <input type="number" id="maxPrice" placeholder="Max" class="w-full border border-gray-200 px-3 py-2 text-sm">
+                            </div>
+                            <button id="applyPriceFilter" class="w-full bg-black text-white py-2 text-sm">Apply</button>
+                        </div>
+                        
+                        <div class="mb-8">
+                            <h3 class="font-semibold mb-4 uppercase tracking-wider text-sm">Size</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <button class="size-filter px-3 py-1 border border-gray-300 text-sm hover:border-black" data-size="XS">XS</button>
+                                <button class="size-filter px-3 py-1 border border-gray-300 text-sm hover:border-black" data-size="S">S</button>
+                                <button class="size-filter px-3 py-1 border border-gray-300 text-sm hover:border-black" data-size="M">M</button>
+                                <button class="size-filter px-3 py-1 border border-gray-300 text-sm hover:border-black" data-size="L">L</button>
+                                <button class="size-filter px-3 py-1 border border-gray-300 text-sm hover:border-black" data-size="XL">XL</button>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-8">
+                            <h3 class="font-semibold mb-4 uppercase tracking-wider text-sm">Rating</h3>
+                            <div class="space-y-2">
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="radio" name="rating" class="rating-filter" value="4">
+                                    <span>4 Stars & Up</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="radio" name="rating" class="rating-filter" value="3">
+                                    <span>3 Stars & Up</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-8">
+                            <h3 class="font-semibold mb-4 uppercase tracking-wider text-sm">Availability</h3>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" id="inStockOnly">
+                                <span>In Stock Only</span>
+                            </label>
+                        </div>
+                        
+                        <button id="resetFilters" class="text-sm text-gray-500 hover:text-black border-b border-gray-300 hover:border-black">Reset All Filters</button>
+                    </div>
+                </aside>
+                
+                <!-- Products Grid -->
+                <div class="flex-1">
+                    <!-- Sort and Count -->
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
+                        <p id="productCount" class="text-gray-600"></p>
+                        <select id="sortSelect" class="border border-gray-200 px-4 py-2 text-sm bg-white">
+                            <option value="featured">Featured</option>
+                            <option value="newest">Newest</option>
+                            <option value="best-selling">Best Selling</option>
+                            <option value="rating">Highest Rated</option>
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Products -->
+                    <div id="productsGrid" class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 mb-12">
+                        <!-- Products will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200">
+        <div class="container mx-auto px-6 py-16">
+            <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-12">
+                <div class="lg:col-span-2">
+                    <h3 class="text-2xl font-display font-bold mb-6">VELORÉ</h3>
+                    <p class="text-gray-600 mb-6 max-w-sm">Experience the world of luxury fashion and lifestyle.</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold uppercase tracking-wider mb-6">Shop</h4>
+                    <ul class="space-y-3 text-sm text-gray-600">
+                        <li><a href="shop.html" class="hover:text-black">All Products</a></li>
+                        <li><a href="collections.html" class="hover:text-black">Collections</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold uppercase tracking-wider mb-6">Help</h4>
+                    <ul class="space-y-3 text-sm text-gray-600">
+                        <li><a href="faq.html" class="hover:text-black">FAQs</a></li>
+                        <li><a href="contact.html" class="hover:text-black">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold uppercase tracking-wider mb-6">Company</h4>
+                    <ul class="space-y-3 text-sm text-gray-600">
+                        <li><a href="about.html" class="hover:text-black">About Us</a></li>
+                        <li><a href="privacy.html" class="hover:text-black">Privacy Policy</a></li>
+                        <li><a href="terms.html" class="hover:text-black">Terms</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-200 mt-12 pt-8">
+                <p class="text-sm text-gray-500">&copy; 2024 VELORÉ. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/data.js"></script>
+    <script>
+        let currentFilters = {};
+        let currentSort = 'featured';
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            lucide.createIcons();
+            updateCartCount();
+            
+            const lenis = new Lenis();
+            function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+            requestAnimationFrame(raf);
+            
+            loadAndDisplayProducts();
+            setupEventListeners();
+        });
+        
+        function loadAndDisplayProducts() {
+            let filtered = filterProducts(currentFilters);
+            let sorted = sortProducts(filtered, currentSort);
+            displayProducts(sorted);
+        }
+        
+        function displayProducts(productList) {
+            const container = document.getElementById('productsGrid');
+            const countEl = document.getElementById('productCount');
+            countEl.textContent = `${productList.length} products`;
+            container.innerHTML = productList.map(product => {
+                const price = product.discountPrice || product.price;
+                const originalPrice = product.discountPrice ? product.price : null;
+                const discount = originalPrice ? Math.round((1 - price / originalPrice) * 100) : 0;
+                const inWishlist = isInWishlist(product.id);
+                return `
+                    <div class="product-card">
+                        <div class="relative overflow-hidden mb-4">
+                            <a href="product.html?id=${product.id}">
+                                <img src="${product.image}" alt="${product.name}" class="w-full aspect-square object-cover">
+                            </a>
+                            <div class="product-overlay absolute inset-0 bg-black/10 flex items-center justify-center gap-2">
+                                <button class="add-to-cart-btn bg-white text-black px-4 py-2 text-sm font-medium" data-id="${product.id}">Add to Cart</button>
+                            </div>
+                            <button class="wishlist-btn absolute top-3 right-3 bg-white p-2 rounded-full" data-id="${product.id}">
+                                <i data-lucide="heart" class="w-5 h-5 ${inWishlist ? 'fill-red-500 text-red-500' : ''}"></i>
+                            </button>
+                            ${product.isNew ? '<span class="absolute top-3 left-3 bg-black text-white text-xs px-2 py-1">NEW</span>' : ''}
+                            ${product.isSale ? '<span class="absolute top-3 left-3 bg-red-600 text-white text-xs px-2 py-1">' + discount + '% OFF</span>' : ''}
+                        </div>
+                        <a href="product.html?id=${product.id}">
+                            <p class="text-sm text-gray-500 mb-1">${product.brand}</p>
+                            <h3 class="font-medium mb-1">${product.name}</h3>
+                            <div class="flex items-center gap-2">
+                                <span class="font-semibold">$${price.toLocaleString()}</span>
+                                ${originalPrice ? '<span class="text-gray-400 line-through text-sm">$' + originalPrice.toLocaleString() + '</span>' : ''}
+                            </div>
+                        </a>
+                    </div>
+                `;
+            }).join('');
+            
+            lucide.createIcons();
+            
+            container.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    addToCart(parseInt(this.getAttribute('data-id')));
+                    showNotification('Added to cart!');
+                });
+            });
+            
+            container.querySelectorAll('.wishlist-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    toggleWishlist(id);
+                    const icon = this.querySelector('i');
+                    if (isInWishlist(id)) {
+                        icon.classList.add('fill-red-500', 'text-red-500');
+                    } else {
+                        icon.classList.remove('fill-red-500', 'text-red-500');
+                    }
+                    showNotification(isInWishlist(id) ? 'Added to wishlist!' : 'Removed from wishlist');
+                });
+            });
+        }
+        
+        function setupEventListeners() {
+            document.getElementById('sortSelect').addEventListener('change', function() {
+                currentSort = this.value;
+                loadAndDisplayProducts();
+            });
+            
+            document.querySelectorAll('.category-filter').forEach(cb => {
+                cb.addEventListener('change', function() {
+                    const checked = Array.from(document.querySelectorAll('.category-filter:checked')).map(cb => cb.value);
+                    if (checked.length > 0) {
+                        currentFilters.category = checked[0];
+                    } else {
+                        delete currentFilters.category;
+                    }
+                    loadAndDisplayProducts();
+                });
+            });
+            
+            document.getElementById('applyPriceFilter').addEventListener('click', function() {
+                const min = document.getElementById('minPrice').value;
+                const max = document.getElementById('maxPrice').value;
+                if (min) currentFilters.minPrice = parseInt(min);
+                else delete currentFilters.minPrice;
+                if (max) currentFilters.maxPrice = parseInt(max);
+                else delete currentFilters.maxPrice;
+                loadAndDisplayProducts();
+            });
+            
+            document.querySelectorAll('.size-filter').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const size = this.getAttribute('data-size');
+                    this.classList.toggle('border-black');
+                    this.classList.toggle('bg-black');
+                    this.classList.toggle('text-white');
+                    const selected = Array.from(document.querySelectorAll('.size-filter.border-black')).map(b => b.getAttribute('data-size'));
+                    if (selected.length > 0) {
+                        currentFilters.size = selected[0];
+                    } else {
+                        delete currentFilters.size;
+                    }
+                    loadAndDisplayProducts();
+                });
+            });
+            
+            document.querySelectorAll('.rating-filter').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    if (this.checked) {
+                        currentFilters.rating = parseFloat(this.value);
+                    } else {
+                        delete currentFilters.rating;
+                    }
+                    loadAndDisplayProducts();
+                });
+            });
+            
+            document.getElementById('inStockOnly').addEventListener('change', function() {
+                if (this.checked) {
+                    currentFilters.inStock = true;
+                } else {
+                    delete currentFilters.inStock;
+                }
+                loadAndDisplayProducts();
+            });
+            
+            document.getElementById('resetFilters').addEventListener('click', function() {
+                currentFilters = {};
+                currentSort = 'featured';
+                document.getElementById('sortSelect').value = 'featured';
+                document.querySelectorAll('.category-filter').forEach(cb => cb.checked = false);
+                document.getElementById('minPrice').value = '';
+                document.getElementById('maxPrice').value = '';
+                document.querySelectorAll('.size-filter').forEach(btn => btn.classList.remove('border-black', 'bg-black', 'text-white'));
+                document.querySelectorAll('.rating-filter').forEach(radio => radio.checked = false);
+                document.getElementById('inStockOnly').checked = false;
+                loadAndDisplayProducts();
+            });
+            
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    document.getElementById('mobileMenu').classList.toggle('hidden');
+                });
+            }
+        }
+        
+        function showNotification(message) {
+            const n = document.createElement('div');
+            n.className = 'fixed bottom-8 right-8 bg-black text-white px-6 py-4 z-50';
+            n.textContent = message;
+            document.body.appendChild(n);
+            setTimeout(() => n.remove(), 3000);
+        }
+    </script>
+</body>
+</html>
